@@ -1,0 +1,21 @@
+name: 버그 신고
+description: 재현 가능한 오류를 기록합니다.
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: 재현 순서와 입력값
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 기대 결과와 실제 결과
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 실행 환경 및 로그
+      description: 토큰·비밀번호·개인정보를 제거하세요.
+

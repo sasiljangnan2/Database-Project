@@ -1,0 +1,39 @@
+{
+  "verified_on": "2026-11-06",
+  "timezone": "Asia/Seoul",
+  "project_type": "FastAPI development starter with planned business APIs",
+  "files": 52,
+  "api_operations": 57,
+  "implemented_business_operations": 0,
+  "implemented_system_operations": 1,
+  "db_tables": 14,
+  "checks": {
+    "pytest": "PASSED: 2 tests (home and process health)",
+    "ruff_check": "PASSED",
+    "ruff_format_check": "PASSED",
+    "openapi_spec_validator": "PASSED: OpenAPI 3.1 contract",
+    "api_markdown_matches_openapi": true,
+    "erd_matches_ddl_tables": true,
+    "sql_foreign_key_table_names": "PASSED: static names only",
+    "local_markdown_links": "PASSED: 42 links across 16 Markdown files",
+    "yaml_syntax": "PASSED: Compose, CI, and 2 issue templates"
+  },
+  "environment": {
+    "os": "Windows",
+    "python": "3.12.14",
+    "fastapi": "0.162.0",
+    "starlette": "1.10.0",
+    "pytest": "8.4.2",
+    "ruff": "0.17.3",
+    "openapi_spec_validator": "0.9.0"
+  },
+  "warnings": [
+    "The installed Starlette version warns that HTTPX-based TestClient is deprecated; both tests pass."
+  ],
+  "not_run": [
+    "MySQL schema and seed execution; no MySQL or Docker executable was available",
+    "Business API, authentication, concurrency, payment, and refund tests; these features are planned and not implemented"
+  ],
+  "source_documents": "Both provided documents were read; original Drive files were not modified",
+  "failures": []
+}

@@ -1,0 +1,23 @@
+{
+  "retrieved_on": "2026-11-06",
+  "timezone": "Asia/Seoul",
+  "format": "Connector text extraction; original formatting is not preserved.",
+  "files": [
+    {
+      "title": "기차예약시스템_팀프로젝트.docx",
+      "id": "1eDCdw0_zxvUQLHEWRPFBUaleSqtQ9oj-",
+      "url": "https://docs.google.com/document/d/1eDCdw0_zxvUQLHEWRPFBUaleSqtQ9oj-/edit",
+      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "modified_time": "2026-11-05T15:15:25.706Z",
+      "local_text": "01-제안서.txt"
+    },
+    {
+      "title": "기차예약시스템_업무분석서_양식추가본",
+      "id": "1lst6UsPt1-7TQZISew9ixknkWA5f3ZE3m_V1OhgDxf0",
+      "url": "https://docs.google.com/document/d/1lst6UsPt1-7TQZISew9ixknkWA5f3ZE3m_V1OhgDxf0/edit?tab=t.0",
+      "mime_type": "text/plain",
+      "modified_time": "2026-10-13T14:59:57.010Z",
+      "local_text": "02-업무분석서.txt"
+    }
+  ]
+}

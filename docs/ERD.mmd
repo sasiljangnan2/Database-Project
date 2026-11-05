@@ -1,0 +1,137 @@
+erDiagram
+    users ||--o{ reservations : books
+    trains ||--o{ seats : contains
+    trains ||--o{ runs : operates
+    routes ||--o{ route_stops : defines
+    stations ||--o{ route_stops : appears_at
+    routes ||--o{ runs : follows
+    runs ||--o{ run_stops : schedules
+    route_stops ||--o{ run_stops : instantiates
+    stations ||--o{ fares : departure
+    stations ||--o{ fares : arrival
+    runs ||--o{ reservations : accepts
+    reservations ||--o{ tickets : contains
+    seats ||--o{ tickets : assigned
+    run_stops ||--o{ tickets : boarding
+    run_stops ||--o{ tickets : alighting
+    fares ||--o{ tickets : priced_by
+    reservations ||--o{ payments : attempts
+    payments ||--o{ refunds : funds
+    tickets ||--o| refunds : refund_record
+    tickets ||--o| boarding_checks : checked_once
+    users ||--o{ boarding_checks : checked_by_admin
+
+    users {
+        bigint id PK
+        varchar email UK
+        varchar password_hash
+        varchar name
+        varchar phone
+        varchar role
+        int token_version
+        boolean is_active
+        datetime created_at
+    }
+    stations {
+        bigint id PK
+        varchar name
+        varchar region
+        boolean is_active
+    }
+    trains {
+        bigint id PK
+        varchar identifier UK
+        varchar train_type
+        boolean is_active
+    }
+    seats {
+        bigint id PK
+        bigint train_id FK
+        smallint carriage_no
+        varchar seat_number
+        varchar seat_class
+    }
+    routes {
+        bigint id PK
+        varchar name
+        varchar direction
+        boolean is_active
+    }
+    route_stops {
+        bigint id PK
+        bigint route_id FK
+        bigint station_id FK
+        smallint stop_order
+    }
+    runs {
+        bigint id PK
+        bigint train_id FK
+        bigint route_id FK
+        varchar service_number
+        date service_date
+        varchar status
+    }
+    run_stops {
+        bigint id PK
+        bigint run_id FK
+        bigint route_stop_id FK
+        smallint stop_order
+        datetime arrival_at
+        datetime departure_at
+    }
+    fares {
+        bigint id PK
+        bigint departure_station_id FK
+        bigint arrival_station_id FK
+        varchar train_type
+        varchar seat_class
+        bigint amount
+    }
+    reservations {
+        bigint id PK
+        bigint user_id FK
+        bigint run_id FK
+        varchar status
+        datetime created_at
+        datetime expires_at
+        bigint total_amount
+    }
+    tickets {
+        bigint id PK
+        bigint reservation_id FK
+        bigint seat_id FK
+        bigint boarding_run_stop_id FK
+        bigint alighting_run_stop_id FK
+        bigint fare_id FK
+        bigint confirmed_amount
+        varchar status
+        datetime issued_at
+        datetime cancelled_at
+    }
+    payments {
+        bigint id PK
+        bigint reservation_id FK
+        bigint amount
+        varchar method
+        varchar status
+        varchar idempotency_key
+        char request_hash
+        datetime created_at
+        bigint successful_reservation_id UK "generated: success only"
+    }
+    refunds {
+        bigint id PK
+        bigint payment_id FK
+        bigint ticket_id FK,UK
+        bigint amount
+        varchar reason
+        varchar status
+        datetime created_at
+        datetime processed_at
+    }
+    boarding_checks {
+        bigint id PK
+        bigint ticket_id FK,UK
+        bigint checked_by FK
+        datetime checked_at
+    }

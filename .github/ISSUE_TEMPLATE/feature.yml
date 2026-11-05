@@ -1,0 +1,21 @@
+name: 기능 개발
+description: 기능과 완료 기준을 정리합니다.
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: 구현할 기능
+      description: 관련 요구사항 ID와 사용자 행동을 적습니다.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 완료 기준 및 검증 방법
+    validations:
+      required: true
+  - type: textarea
+    id: contract
+    attributes:
+      label: API·DB 변경 및 선행 작업
+
