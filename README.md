@@ -102,7 +102,8 @@ CI는 MySQL 8.4 서비스에서 DB 검사도 실행하도록 구성했다.
 2. `docs/04-api.md`와 `docs/openapi.json`으로 요청·응답을 맞춘다.
 3. `docs/06-development.md`와 `docs/07-git-workflow.md`에 따라 기능 브랜치에서 작업한다.
 4. 테스트 후 PR 템플릿에 변경 내용·결과·DB 적용 순서를 작성한다. CI 통과와 최신 대상 브랜치 반영 후 작성자가 병합할 수 있다.
-리뷰 요청과 다른 팀원의 승인은 선택 사항이다.
+
+이슈 작성·연결과 리뷰 요청·승인은 선택 사항이다.
 
 GitHub의 branch protection은 문서만으로 적용되지 않는다.
 저장소 관리자가 docs/07-git-workflow.md에 따라 설정해야 한다.
