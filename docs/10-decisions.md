@@ -29,7 +29,7 @@ DB 구조는 첨부 ERD, 팀원 역할과 직통 검색·여러 좌석 예약·�
 | 운행방향·구간 | 방향은 runs.direction, 실제 구간은 run_stops.stop_order의 1부터 연속 순서 |
 | 시간 | DB UTC, API ISO 8601, 검색일 Asia/Seoul |
 | 금액 | 원 단위 정수, 서버 계산 |
-| Git | main/develop + 기능 브랜치, PR 승인 1명·CI 필수 |
+| Git | main/develop + 기능 브랜치, PR·CI 필수, 리뷰 요청·승인 선택 |
 
 FastAPI는 라우팅·요청 검증·OpenAPI 생성에 사용하고 Jinja2는 HTML 렌더링을 맡는다.
 SQLAlchemy/PyMySQL은 DB 연결 계층이며 원문의 MySQL을 변경하지 않는다.
