@@ -11,7 +11,7 @@
 
 운행 검색·좌석 조회·예약·결제·환불·탑승의 실제 업무 API는 아직 구현하지 않았다.
 빈 라우터를 가짜 성공 응답으로 채우지 않는다. 현재 `/docs`에는 구현한 API만 표시된다.
-이번 작업은 파일 구성과 로컬 검증이며 Render 배포·원격 push·팀원 연락은 수행하지 않았다.
+Docker로 실행하거나 Render에 배포할 때는 [배포 안내](12-deployment.md)를 따른다.
 
 ## 각자 처음 실행하기
 
@@ -31,6 +31,9 @@ docker compose up -d db
 DB 담당은 먼저 신규 MySQL에서 DDL·seed 적용을 확인하고, 기준 버전을 팀원에게 안내한다.
 각자 로컬 DB를 사용하고 Render DB는 추후 통합·시연 환경으로 사용한다.
 프론트는 Docker DB를 실행하지 않아도 서버와 `/dev/preview`를 사용할 수 있다.
+
+웹까지 Docker로 실행하려면 `.env` 생성 후 `docker compose --profile web up --build -d`를 실행한다.
+이때 웹은 Compose의 `db:3306`에 연결한다. 설정과 실행 범위는 [배포 안내](12-deployment.md)를 따른다.
 
 | 주소 | 목적 |
 | --- | --- |
