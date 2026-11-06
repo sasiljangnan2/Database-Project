@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "SEAT_CONFLICT",
+    "message": "선택 구간에 이미 확보된 좌석입니다.",
+    "details": []
+  }
+}

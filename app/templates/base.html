@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}기차 예약 시스템{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/style.css" rel="stylesheet">
+</head>
+<body>
+  <main class="container py-5">
+    <nav class="d-flex gap-3 mb-4" aria-label="공통 메뉴">
+      <a href="/">홈</a>
+      <a href="/docs">실행 API 문서</a>
+      {% if preview_enabled %}<a href="/dev/preview">화면 개발용 샘플</a>{% endif %}
+    </nav>
+    {% block content %}{% endblock %}
+  </main>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

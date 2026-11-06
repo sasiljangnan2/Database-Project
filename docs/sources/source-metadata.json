@@ -19,5 +19,12 @@
       "modified_time": "2026-10-13T14:59:57.010Z",
       "local_text": "02-업무분석서.txt"
     }
-  ]
+  ],
+  "reference_erd": {
+    "provided_on": "2026-11-06",
+    "source_kind": "user_attachment",
+    "local_image": "ERD-reference.png",
+    "entities": 16,
+    "sha256": "7964ac5faaf54df61110a0888f548c9e23df3ecf33561225326f7c79291738c7"
+  }
 }

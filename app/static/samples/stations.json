@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "A역",
+      "region": null,
+      "is_active": true
+    },
+    {
+      "id": 2,
+      "name": "B역",
+      "region": null,
+      "is_active": true
+    },
+    {
+      "id": 3,
+      "name": "C역",
+      "region": null,
+      "is_active": true
+    }
+  ],
+  "page": 1,
+  "size": 20,
+  "total": 3
+}

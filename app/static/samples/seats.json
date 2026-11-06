@@ -1,0 +1,18 @@
+[
+  {
+    "seat_id": 101,
+    "carriage_no": 1,
+    "seat_number": "1A",
+    "seat_class": "STANDARD",
+    "available": true,
+    "amount": 30000
+  },
+  {
+    "seat_id": 102,
+    "carriage_no": 1,
+    "seat_number": "1B",
+    "seat_class": "STANDARD",
+    "available": true,
+    "amount": 30000
+  }
+]

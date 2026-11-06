@@ -94,7 +94,7 @@ squash merge 뒤에는 `git branch -d`가 거절될 수 있으므로 자동으�
 ## GitHub에서 관리자가 설정할 항목
 
 main과 develop 보호 규칙: PR 필수, 승인 1명 이상, 새 commit 시 기존 승인 해제,
-대화 해결 필수, CI의 python 체크 성공 필수, force push·브랜치 삭제 금지.
+대화 해결 필수, CI의 python·frontend 체크 성공 필수, force push·브랜치 삭제 금지.
 branch protection과 merge 방식 설정은 원격 저장소에서 수동으로 적용해야 한다.
 저장소 URL이 제공되지 않아 이 파일 생성 과정에서는 원격 작업을 하지 않았다.
 

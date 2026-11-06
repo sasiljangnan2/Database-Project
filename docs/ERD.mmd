@@ -1,4 +1,6 @@
 erDiagram
+    train_types ||--o{ trains : classifies
+    train_types ||--o{ fares : prices
     users ||--o{ reservations : books
     trains ||--o{ seats : contains
     trains ||--o{ runs : operates
@@ -20,6 +22,15 @@ erDiagram
     tickets ||--o| refunds : refund_record
     tickets ||--o| boarding_checks : checked_once
     users ||--o{ boarding_checks : checked_by_admin
+    runs ||--o{ seat_occupancies : allocates_segments
+    seats ||--o{ seat_occupancies : occupies
+    tickets ||--o{ seat_occupancies : claims
+    run_stops ||--o{ seat_occupancies : starts_segment
+
+    train_types {
+        varchar code PK
+        varchar name
+    }
 
     users {
         bigint id PK
@@ -41,7 +52,7 @@ erDiagram
     trains {
         bigint id PK
         varchar identifier UK
-        varchar train_type
+        varchar train_type_code FK
         boolean is_active
     }
     seats {
@@ -54,7 +65,6 @@ erDiagram
     routes {
         bigint id PK
         varchar name
-        varchar direction
         boolean is_active
     }
     route_stops {
@@ -70,6 +80,7 @@ erDiagram
         varchar service_number
         date service_date
         varchar status
+        varchar direction
     }
     run_stops {
         bigint id PK
@@ -83,7 +94,7 @@ erDiagram
         bigint id PK
         bigint departure_station_id FK
         bigint arrival_station_id FK
-        varchar train_type
+        varchar train_type_code FK
         varchar seat_class
         bigint amount
     }
@@ -134,4 +145,10 @@ erDiagram
         bigint ticket_id FK,UK
         bigint checked_by FK
         datetime checked_at
+    }
+    seat_occupancies {
+        bigint run_id PK,FK
+        bigint seat_id PK,FK
+        smallint segment_start_order PK,FK
+        bigint ticket_id FK
     }

@@ -1,0 +1,71 @@
+{
+  "description": "Independent fictional snapshots. No live booking or payment is performed.",
+  "samples": [
+    {
+      "file": "stations",
+      "method": "get",
+      "path": "/stations",
+      "status": 200
+    },
+    {
+      "file": "train-types",
+      "method": "get",
+      "path": "/train-types",
+      "status": 200
+    },
+    {
+      "file": "runs",
+      "method": "get",
+      "path": "/runs",
+      "status": 200
+    },
+    {
+      "file": "seats",
+      "method": "get",
+      "path": "/runs/{run_id}/seats",
+      "status": 200
+    },
+    {
+      "file": "user",
+      "method": "get",
+      "path": "/users/me",
+      "status": 200
+    },
+    {
+      "file": "reservation-pending",
+      "method": "post",
+      "path": "/reservations",
+      "status": 201
+    },
+    {
+      "file": "reservation-paid",
+      "method": "get",
+      "path": "/reservations/{reservation_id}",
+      "status": 200
+    },
+    {
+      "file": "reservation-partial-cancel",
+      "method": "get",
+      "path": "/reservations/{reservation_id}",
+      "status": 200
+    },
+    {
+      "file": "reservations",
+      "method": "get",
+      "path": "/reservations",
+      "status": 200
+    },
+    {
+      "file": "error-seat-conflict",
+      "method": "post",
+      "path": "/reservations",
+      "status": 409
+    },
+    {
+      "file": "error-validation",
+      "method": "post",
+      "path": "/auth/register",
+      "status": 422
+    }
+  ]
+}

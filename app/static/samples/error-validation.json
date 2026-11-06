@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "입력값을 확인해 주세요.",
+    "details": [
+      {
+        "field": "body.email",
+        "message": "이메일 형식을 확인해 주세요."
+      }
+    ]
+  }
+}

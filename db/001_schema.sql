@@ -1,4 +1,4 @@
--- 신규 개발 DB 초기화용. MySQL 8.0.16+ / InnoDB.
+-- 첨부 ERD 기준 16개 테이블. 신규 개발 DB 초기화용. MySQL 8.0.16+ / InnoDB.
 SET NAMES utf8mb4;
 SET time_zone = '+00:00';
 
@@ -18,15 +18,21 @@ CREATE TABLE users (
 CREATE TABLE stations (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    region VARCHAR(100) NOT NULL,
+    region VARCHAR(100) NULL COMMENT 'ERD 외 선택 메타데이터',
     is_active BOOLEAN NOT NULL DEFAULT TRUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE train_types (
+    code VARCHAR(30) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE trains (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     identifier VARCHAR(50) NOT NULL UNIQUE,
-    train_type VARCHAR(30) NOT NULL,
-    is_active BOOLEAN NOT NULL DEFAULT TRUE
+    train_type_code VARCHAR(30) NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    CONSTRAINT fk_trains_type FOREIGN KEY (train_type_code) REFERENCES train_types(code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE seats (
@@ -43,7 +49,6 @@ CREATE TABLE seats (
 CREATE TABLE routes (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    direction VARCHAR(50) NOT NULL,
     is_active BOOLEAN NOT NULL DEFAULT TRUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -65,6 +70,7 @@ CREATE TABLE runs (
     service_number VARCHAR(30) NOT NULL,
     service_date DATE NOT NULL,
     status VARCHAR(15) NOT NULL DEFAULT 'ON_SALE',
+    direction VARCHAR(50) NOT NULL,
     UNIQUE (service_number, service_date),
     INDEX idx_runs_train_date (train_id, service_date),
     FOREIGN KEY (train_id) REFERENCES trains(id),
@@ -93,12 +99,13 @@ CREATE TABLE fares (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     departure_station_id BIGINT UNSIGNED NOT NULL,
     arrival_station_id BIGINT UNSIGNED NOT NULL,
-    train_type VARCHAR(30) NOT NULL,
+    train_type_code VARCHAR(30) NOT NULL,
     seat_class VARCHAR(20) NOT NULL,
     amount BIGINT NOT NULL,
-    UNIQUE (departure_station_id, arrival_station_id, train_type, seat_class),
+    UNIQUE (departure_station_id, arrival_station_id, train_type_code, seat_class),
     FOREIGN KEY (departure_station_id) REFERENCES stations(id),
     FOREIGN KEY (arrival_station_id) REFERENCES stations(id),
+    CONSTRAINT fk_fares_type FOREIGN KEY (train_type_code) REFERENCES train_types(code),
     CHECK (departure_station_id <> arrival_station_id),
     CHECK (amount >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -141,6 +148,24 @@ CREATE TABLE tickets (
     CHECK (boarding_run_stop_id <> alighting_run_stop_id),
     CHECK (confirmed_amount >= 0),
     CHECK (status IN ('HELD', 'ISSUED', 'BOARDED', 'CANCELLED', 'EXPIRED'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 각 행은 실제 운행 순서의 [segment_start_order, segment_start_order + 1) 점유다.
+-- 승차권의 [승차순서, 하차순서) 전체를 같은 트랜잭션에서 INSERT한다.
+-- 중복 키 발생 시 예약 전체를 rollback한다. INSERT IGNORE / REPLACE는 사용하지 않는다.
+CREATE TABLE seat_occupancies (
+    run_id BIGINT UNSIGNED NOT NULL,
+    seat_id BIGINT UNSIGNED NOT NULL,
+    segment_start_order SMALLINT UNSIGNED NOT NULL,
+    ticket_id BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (run_id, seat_id, segment_start_order),
+    INDEX idx_occupancy_ticket (ticket_id),
+    FOREIGN KEY (run_id) REFERENCES runs(id),
+    FOREIGN KEY (seat_id) REFERENCES seats(id),
+    FOREIGN KEY (ticket_id) REFERENCES tickets(id),
+    CONSTRAINT fk_occupancy_segment FOREIGN KEY (run_id, segment_start_order)
+        REFERENCES run_stops(run_id, stop_order),
+    CHECK (segment_start_order > 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE payments (
