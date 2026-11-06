@@ -15,8 +15,9 @@
 
 ## API 변경
 
-이슈에서 요청·응답 예시와 실패 조건을 합의한 뒤 docs/openapi.json, docs/04-api.md,
+요청·응답 예시와 실패 조건을 먼저 합의한 뒤 docs/openapi.json, docs/04-api.md,
 Pydantic schema, 구현을 같은 PR에서 변경한다. 임의 URL·상태값을 프론트에서 먼저 만들지 않는다.
+합의 내용은 PR 본문이나 관련 문서에 남긴다.
 구현 완료 시 실제 app.openapi()와 예정 계약의 해당 경로를 비교한다.
 
 ## DB 변경

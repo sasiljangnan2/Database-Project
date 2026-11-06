@@ -6,12 +6,14 @@
 | --- | --- | --- |
 | main | 제출·시연 가능한 버전 | 금지, develop에서 PR |
 | develop | 팀 통합 | 금지, 기능 브랜치에서 PR |
-| feat/12-seat-reservation | 기능 | 본인 브랜치만 허용 |
-| fix/23-refund-duplicate | 버그 | 본인 브랜치만 허용 |
-| docs/7-api-contract | 문서 | 본인 브랜치만 허용 |
-| chore/5-ci | 환경·도구 | 본인 브랜치만 허용 |
+| feat/seat-reservation | 기능 | 본인 브랜치만 허용 |
+| fix/refund-duplicate | 버그 | 본인 브랜치만 허용 |
+| docs/api-contract | 문서 | 본인 브랜치만 허용 |
+| chore/ci | 환경·도구 | 본인 브랜치만 허용 |
 
-숫자는 GitHub 이슈 번호다. 한 브랜치는 한 작업만 다룬다. 초기 저장소 등록은 관리자가 한 번 수행한다.
+브랜치는 `type/작업설명` 형식으로 만들고 한 브랜치에서 한 작업만 다룬다.
+이슈 작성·번호 사용·PR 연결은 선택 사항이다. 기능 브랜치에서 바로 작업을 시작할 수 있다.
+초기 저장소 등록은 관리자가 한 번 수행한다.
 아래 명령은 원격 저장소에 `develop` 브랜치가 준비된 뒤 사용한다.
 프로젝트 파일 생성만으로 GitHub 저장소나 브랜치 보호가 설정되지는 않는다.
 
@@ -24,7 +26,7 @@ git status
 git switch develop
 git fetch origin
 git pull --ff-only origin develop
-git switch -c feat/12-seat-reservation
+git switch -c feat/seat-reservation
 ~~~
 
 --ff-only가 실패하면 자동 reset하지 말고 로컬 develop의 별도 commit 여부를 확인한다.
@@ -33,14 +35,15 @@ git switch -c feat/12-seat-reservation
 ## 커밋과 push
 
 형식: type(scope): 내용. type은 feat, fix, docs, refactor, test, chore 중 선택한다.
-예: feat(reservation): 구간 중복 예약 차단. 본문에는 필요한 이유와 관련 이슈를 적는다.
+예: feat(reservation): 구간 중복 예약 차단. 본문에는 변경이 필요한 이유를 적는다.
+관련 이슈가 있으면 선택적으로 연결할 수 있다.
 파일을 명시해 stage하고 git diff --cached로 비밀값·무관한 변경을 확인한다.
 
 ~~~powershell
 git add app/services/reservation.py tests/test_reservation.py
 git diff --cached
 git commit -m "feat(reservation): 구간 중복 예약 차단"
-git push -u origin feat/12-seat-reservation
+git push -u origin feat/seat-reservation
 ~~~
 
 위 파일은 작업 예시이며 초기 프로젝트에는 없다. 실제 변경한 경로를 사용한다.
@@ -71,7 +74,7 @@ git status
 
 ## PR과 병합
 
-1. 기능 브랜치 → develop으로 PR을 만들고 이슈를 연결한다. 작업 중이면 Draft를 사용한다.
+1. 기능 브랜치 → develop으로 PR을 만든다. 이슈 연결은 선택 사항이며 작업 중이면 Draft를 사용한다.
 2. 목적·변경·실행한 검증·화면/API 예시·DB 적용 순서를 템플릿에 적는다.
 3. 리뷰 요청과 다른 팀원의 승인은 선택 사항이다. 필요한 경우 변경 영역 담당자에게 요청할 수 있다.
 4. CI 통과, 최신 develop 반영, 등록된 리뷰 대화 해결 후 작성자가 squash merge할 수 있다.
@@ -79,7 +82,7 @@ git status
 6. 제출 전 develop → main PR에서 통합 시나리오를 확인한다. main 병합 후 v0.1.0 같은 태그를 관리자가 만든다.
 
 PR 제목은 커밋과 같은 `type(scope): 내용` 형식을 사용한다.
-예: `feat(reservation): 구간별 좌석 예약 생성`. 관련 이슈는 본문에 `Closes #12`처럼 연결한다.
+예: `feat(reservation): 구간별 좌석 예약 생성`. 관련 이슈가 있으면 본문에 `Closes #12`처럼 선택적으로 연결할 수 있다.
 작성 양식은 [PR 템플릿](../.github/pull_request_template.md)을 사용한다.
 미완성 작업은 Draft로 열고, 검증하지 않은 항목은 통과했다고 적지 않는다.
 
