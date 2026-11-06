@@ -12,6 +12,7 @@
 | 실행 코드 | 회원·인증 API 6개, 상태 확인, 공통 의존성·오류 처리, 기능별 라우터, ORM 16개 |
 | 프론트 공통 | base.html, API 클라이언트, 11개 샘플 JSON, DB 없는 개발 미리보기 |
 | DB 파일 | 첨부 ERD 기준 MySQL 16개 테이블 DDL, seed, 기존 DB 변경안, Docker Compose |
+| 컨테이너·배포 | 웹 Dockerfile, 웹+DB Compose 실행, Render Docker 배포 안내 |
 | 개발 문서 | 요구사항, 설계서·ERD, API 계약, 업무·개발 규칙, 테스트 계획, 역할·작업 순서 |
 | 협업 파일 | pull·push·PR 규칙, PR·이슈 템플릿, GitHub Actions CI, Git 제외 규칙 |
 
@@ -59,6 +60,19 @@ DB는 첫 볼륨 생성 시 db/001_schema.sql, db/002_seed.sql을 순서대로 �
 DB 직접 연결: localhost:3307 / train_app / train_app / train_local_pw.
 이는 로컬 개발 전용 값이며 외부 배포 시 별도 계정과 비밀값을 사용한다.
 
+## Docker로 웹 실행
+
+Docker Desktop을 실행한 뒤 프로젝트 루트에서 실행한다.
+
+```powershell
+py -3.12 scripts/setup_local.py
+docker compose --profile web up --build -d
+```
+
+홈페이지는 http://127.0.0.1:8000/, API 문서는 http://127.0.0.1:8000/docs다.
+웹 컨테이너는 Compose의 MySQL에 연결하며 로컬 `.env`의 인증 설정을 사용한다.
+Render에서 Language를 Docker로 선택하는 방법과 환경변수는 [배포 안내](docs/12-deployment.md)를 따른다.
+
 ## 검증
 
 ~~~powershell
@@ -71,7 +85,7 @@ DB 직접 연결: localhost:3307 / train_app / train_app / train_local_pw.
 회원·인증·계약·ORM·미리보기 단위 테스트를 제공한다. MySQL 제약·ORM 검사 5개는 TEST_DATABASE_URL이 없으면 건너뛴다.
 프론트 클라이언트 검사는 Node.js 22 이상에서 `node --test tests/frontend.test.mjs`로 실행한다.
 빈 전용 DB에서 실행하는 방법과 검증 범위는 [테스트 계획](docs/08-test-plan.md)을 따른다.
-CI는 MySQL 8.4 서비스에서 DB 검사도 실행하도록 구성했다.
+CI는 MySQL 8.4 서비스에서 DB 검사를 실행하고 Docker 이미지 빌드·사용자 지정 포트·HTML·API 문서·정적 파일 응답도 확인한다.
 
 ## 문서
 
@@ -79,6 +93,7 @@ CI는 MySQL 8.4 서비스에서 DB 검사도 실행하도록 구성했다.
 | --- | --- |
 | [docs/설계서.md](docs/설계서.md) | FastAPI 기준 기술 스택, 시스템 구성·주요 처리 설계 |
 | [docs/11-team-start.md](docs/11-team-start.md) | 팀원별 담당 파일·첫 작업, 공통 인증·프론트 샘플 사용법 |
+| [docs/12-deployment.md](docs/12-deployment.md) | Docker 실행, Render Docker 설정, 환경변수·DB 준비 |
 | [docs/01-requirements.md](docs/01-requirements.md) | 범위, 요구사항, 팀원 역할 |
 | [docs/02-architecture.md](docs/02-architecture.md) | 폴더 구조, FastAPI 개발 방식 |
 | [docs/03-database.md](docs/03-database.md) | 16개 테이블, 열차종류 FK, 구간별 좌석점유 PK, 잠금 처리 |

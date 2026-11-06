@@ -1,4 +1,19 @@
 services:
+  web:
+    profiles: [web]
+    build: .
+    environment:
+      APP_NAME: "${APP_NAME:-Train Reservation}"
+      DATABASE_URL: "mysql+pymysql://train_app:train_local_pw@db:3306/train_app?charset=utf8mb4"
+      JWT_SECRET_KEY: "${JWT_SECRET_KEY:-}"
+      ACCESS_TOKEN_EXPIRE_MINUTES: "${ACCESS_TOKEN_EXPIRE_MINUTES:-30}"
+      ENABLE_FRONTEND_PREVIEW: "${ENABLE_FRONTEND_PREVIEW:-false}"
+      PORT: "8000"
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
   db:
     image: mysql:8.4
     environment:
@@ -13,7 +28,7 @@ services:
       - train_db:/var/lib/mysql
       - ./db:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
       interval: 5s
       timeout: 5s
       retries: 20

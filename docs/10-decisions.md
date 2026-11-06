@@ -35,7 +35,8 @@ FastAPI는 라우팅·요청 검증·OpenAPI 생성에 사용하고 Jinja2는 HT
 SQLAlchemy/PyMySQL은 DB 연결 계층이며 원문의 MySQL을 변경하지 않는다.
 팀 병렬 개발용으로 ORM 16개·Pydantic 모델·회원/인증 6개 API·공통 의존성/오류를 구현했다.
 운행·예약·결제·환불·탑승과 만료 정리는 아직 담당자별 개발 대상이다.
-이번 범위에는 Render 배포 파일·원격 push·DB 적용을 포함하지 않았다.
+Dockerfile·로컬 웹+DB Compose 실행과 [Render Docker 배포 안내](12-deployment.md)를 추가했다.
+실제 Render 배포와 운영 DB 적용은 배포 환경을 준비한 뒤 수행한다.
 파일 담당과 첫 작업은 [11-team-start.md](11-team-start.md)를 따른다.
 예정 계약과 초기 SQL은 개발을 시작할 때 검증·보완할 대상이다.
 
