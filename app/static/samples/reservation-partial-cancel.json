@@ -1,0 +1,56 @@
+{
+  "id": 1001,
+  "run_id": 501,
+  "status": "PARTIALLY_CANCELLED",
+  "created_at": "2026-11-30T14:00:00+09:00",
+  "expires_at": "2026-11-30T14:10:00+09:00",
+  "total_amount": 60000,
+  "tickets": [
+    {
+      "id": 2001,
+      "reservation_id": 1001,
+      "seat_id": 101,
+      "boarding_run_stop_id": 5011,
+      "alighting_run_stop_id": 5013,
+      "fare_id": 901,
+      "confirmed_amount": 30000,
+      "status": "ISSUED",
+      "issued_at": "2026-11-30T14:02:00+09:00",
+      "cancelled_at": null
+    },
+    {
+      "id": 2002,
+      "reservation_id": 1001,
+      "seat_id": 102,
+      "boarding_run_stop_id": 5011,
+      "alighting_run_stop_id": 5013,
+      "fare_id": 901,
+      "confirmed_amount": 30000,
+      "status": "CANCELLED",
+      "issued_at": "2026-11-30T14:02:00+09:00",
+      "cancelled_at": "2026-11-30T15:00:00+09:00"
+    }
+  ],
+  "payments": [
+    {
+      "id": 3001,
+      "reservation_id": 1001,
+      "amount": 60000,
+      "method": "DEMO_CARD",
+      "status": "SUCCEEDED",
+      "created_at": "2026-11-30T14:02:00+09:00"
+    }
+  ],
+  "refunds": [
+    {
+      "id": 4001,
+      "payment_id": 3001,
+      "ticket_id": 2002,
+      "amount": 30000,
+      "reason": "USER_CANCELLED",
+      "status": "PENDING",
+      "created_at": "2026-11-30T15:00:00+09:00",
+      "processed_at": null
+    }
+  ]
+}

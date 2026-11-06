@@ -1,9 +1,29 @@
 from fastapi import APIRouter
 
+from app.api.endpoints import (
+    admin_catalog,
+    admin_operations,
+    auth,
+    catalog,
+    refunds,
+    reservations,
+    runs,
+    system,
+    tickets,
+    users,
+)
+
 api_router = APIRouter()
-
-
-@api_router.get("/health", tags=["system"])
-def health() -> dict[str, str]:
-    """프로세스 생존 확인. DB 연결 상태를 의미하지 않는다."""
-    return {"status": "ok", "scope": "process"}
+for domain in (
+    system,
+    auth,
+    users,
+    catalog,
+    runs,
+    reservations,
+    tickets,
+    refunds,
+    admin_catalog,
+    admin_operations,
+):
+    api_router.include_router(domain.router)

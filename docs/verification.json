@@ -1,39 +1,53 @@
 {
   "verified_on": "2026-11-06",
   "timezone": "Asia/Seoul",
-  "project_type": "FastAPI development starter with planned business APIs",
-  "files": 52,
-  "api_operations": 57,
-  "implemented_business_operations": 0,
+  "project_type": "Parallel team development foundation: shared ORM, schemas, authentication and frontend samples",
+  "files": 120,
+  "api_operations": 62,
+  "implemented_business_operations": 6,
   "implemented_system_operations": 1,
-  "db_tables": 14,
+  "db_tables": 16,
   "checks": {
-    "pytest": "PASSED: 2 tests (home and process health)",
+    "pytest": "49 passed, 5 MySQL-only tests skipped",
     "ruff_check": "PASSED",
     "ruff_format_check": "PASSED",
     "openapi_spec_validator": "PASSED: OpenAPI 3.1 contract",
     "api_markdown_matches_openapi": true,
     "erd_matches_ddl_tables": true,
-    "sql_foreign_key_table_names": "PASSED: static names only",
-    "local_markdown_links": "PASSED: 42 links across 16 Markdown files",
-    "yaml_syntax": "PASSED: Compose, CI, and 2 issue templates"
+    "erd_matches_ddl_columns": true,
+    "occupancy_primary_key_matches_reference": true,
+    "sql_foreign_key_names_and_columns": "PASSED: 27 FK column groups checked statically",
+    "local_markdown_links": "PASSED: 67 links across 22 Markdown files",
+    "yaml_syntax": "PASSED: Compose, CI, and 2 issue templates",
+    "frontend_node_tests": "PASSED: 5 tests",
+    "pydantic_and_frontend_samples": "PASSED: all 11 response samples validated against JSON Schema and Pydantic models",
+    "orm_contract": "PASSED: 16 table column sets, PKs, FK groups and MySQL DDL compilation",
+    "install_with_constraints": "PASSED: editable install and pip check",
+    "wheel_static_assets": "PASSED: templates, JavaScript and all sample JSON files included"
   },
   "environment": {
     "os": "Windows",
+    "node": "24.14.0",
     "python": "3.12.14",
     "fastapi": "0.162.0",
     "starlette": "1.10.0",
     "pytest": "8.4.2",
     "ruff": "0.17.3",
-    "openapi_spec_validator": "0.9.0"
+    "openapi_spec_validator": "0.9.0",
+    "PyJWT": "2.15.1",
+    "argon2_cffi": "25.1.0",
+    "email_validator": "2.3.0"
   },
   "warnings": [
     "The installed Starlette version warns that HTTPX-based TestClient is deprecated; both tests pass."
   ],
   "not_run": [
-    "MySQL schema and seed execution; no MySQL or Docker executable was available",
-    "Business API, authentication, concurrency, payment, and refund tests; these features are planned and not implemented"
+    "MySQL DDL/seed, legacy migration, 5 MySQL constraint/ORM checks and real MySQL authentication integration; no MySQL/Docker runtime was available",
+    "GitHub Actions (Python/MySQL and Node jobs)",
+    "Run search, reservation, payment, refund, boarding and expiry workflows; domain services are not implemented",
+    "Render deployment and remote Git actions; outside this change"
   ],
-  "source_documents": "Both provided documents were read; original Drive files were not modified",
-  "failures": []
+  "source_documents": "Both original documents were read earlier and remain unchanged; the follow-up attached ERD is the database structure reference",
+  "failures": [],
+  "auth_test_scope": "HTTP/auth logic uses an isolated SQLite users table only; it does not establish MySQL locking or seat occupancy correctness"
 }

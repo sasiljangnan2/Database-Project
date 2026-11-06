@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "run_id": 501,
+      "service_number": "T101",
+      "train_type_code": "EXPRESS",
+      "train_type_name": "급행",
+      "direction": "A_TO_C",
+      "boarding_run_stop_id": 5011,
+      "alighting_run_stop_id": 5013,
+      "departure_at": "2026-12-01T09:00:00+09:00",
+      "arrival_at": "2026-12-01T10:20:00+09:00",
+      "fares": [
+        {
+          "seat_class": "STANDARD",
+          "amount": 30000,
+          "available_seats": 2
+        }
+      ]
+    }
+  ],
+  "page": 1,
+  "size": 20,
+  "total": 1
+}

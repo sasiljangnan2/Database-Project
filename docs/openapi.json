@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "기차 예약 시스템 — 예정 API 계약",
-    "version": "0.1.0",
-    "description": "개발 설계 초안. health 외 업무 API는 미구현. 실제 실행 문서는 앱 /docs 참조."
+    "version": "0.2.0",
+    "description": "16개 테이블 기준 예정 계약 62개. health와 회원·인증 6개 구현. 검색·예약·결제 등은 담당자별 개발 예정."
   },
   "servers": [
     {
@@ -19,7 +19,7 @@
         "tags": [
           "health"
         ],
-        "description": "현재 구현됨.",
+        "description": "프로세스 상태 확인. DB 연결을 검사하지 않는다.",
         "security": [],
         "parameters": [],
         "responses": {
@@ -45,7 +45,7 @@
         "tags": [
           "auth"
         ],
-        "description": "아직 구현되지 않은 예정 계약. 본인 리소스 접근만 허용.",
+        "description": "현재 구현됨. DB가 필요한 회원 기능은 초기 스키마와 환경설정이 필요하다.",
         "security": [],
         "parameters": [],
         "responses": {
@@ -90,7 +90,7 @@
             }
           },
           "503": {
-            "description": "잠금 재시도 소진, 나중에 재시도",
+            "description": "DB 연결·스키마 또는 인증 비밀키 설정 필요",
             "content": {
               "application/json": {
                 "schema": {
@@ -100,7 +100,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "PUBLIC",
         "requestBody": {
           "required": true,
@@ -121,7 +121,7 @@
         "tags": [
           "auth"
         ],
-        "description": "아직 구현되지 않은 예정 계약. 본인 리소스 접근만 허용.",
+        "description": "현재 구현됨. DB가 필요한 회원 기능은 초기 스키마와 환경설정이 필요하다.",
         "security": [],
         "parameters": [],
         "responses": {
@@ -166,7 +166,7 @@
             }
           },
           "503": {
-            "description": "잠금 재시도 소진, 나중에 재시도",
+            "description": "DB 연결·스키마 또는 인증 비밀키 설정 필요",
             "content": {
               "application/json": {
                 "schema": {
@@ -176,7 +176,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "PUBLIC",
         "requestBody": {
           "required": true,
@@ -197,7 +197,7 @@
         "tags": [
           "auth"
         ],
-        "description": "아직 구현되지 않은 예정 계약. 본인 리소스 접근만 허용.",
+        "description": "현재 구현됨. DB가 필요한 회원 기능은 초기 스키마와 환경설정이 필요하다.",
         "security": [
           {
             "BearerAuth": []
@@ -266,7 +266,7 @@
             }
           },
           "503": {
-            "description": "잠금 재시도 소진, 나중에 재시도",
+            "description": "DB 연결·스키마 또는 인증 비밀키 설정 필요",
             "content": {
               "application/json": {
                 "schema": {
@@ -276,7 +276,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "MEMBER"
       }
     },
@@ -287,7 +287,7 @@
         "tags": [
           "users"
         ],
-        "description": "아직 구현되지 않은 예정 계약. 본인 리소스 접근만 허용.",
+        "description": "현재 구현됨. DB가 필요한 회원 기능은 초기 스키마와 환경설정이 필요하다.",
         "security": [
           {
             "BearerAuth": []
@@ -356,7 +356,7 @@
             }
           },
           "503": {
-            "description": "잠금 재시도 소진, 나중에 재시도",
+            "description": "DB 연결·스키마 또는 인증 비밀키 설정 필요",
             "content": {
               "application/json": {
                 "schema": {
@@ -366,7 +366,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "MEMBER"
       },
       "patch": {
@@ -375,7 +375,7 @@
         "tags": [
           "users"
         ],
-        "description": "아직 구현되지 않은 예정 계약. 본인 리소스 접근만 허용.",
+        "description": "현재 구현됨. DB가 필요한 회원 기능은 초기 스키마와 환경설정이 필요하다.",
         "security": [
           {
             "BearerAuth": []
@@ -444,7 +444,7 @@
             }
           },
           "503": {
-            "description": "잠금 재시도 소진, 나중에 재시도",
+            "description": "DB 연결·스키마 또는 인증 비밀키 설정 필요",
             "content": {
               "application/json": {
                 "schema": {
@@ -454,7 +454,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "MEMBER",
         "requestBody": {
           "required": true,
@@ -475,7 +475,7 @@
         "tags": [
           "users"
         ],
-        "description": "아직 구현되지 않은 예정 계약. 본인 리소스 접근만 허용.",
+        "description": "현재 구현됨. DB가 필요한 회원 기능은 초기 스키마와 환경설정이 필요하다.",
         "security": [
           {
             "BearerAuth": []
@@ -544,7 +544,7 @@
             }
           },
           "503": {
-            "description": "잠금 재시도 소진, 나중에 재시도",
+            "description": "DB 연결·스키마 또는 인증 비밀키 설정 필요",
             "content": {
               "application/json": {
                 "schema": {
@@ -554,7 +554,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "MEMBER",
         "requestBody": {
           "required": true,
@@ -6383,6 +6383,581 @@
         "x-implementation-status": "planned",
         "x-required-role": "ADMIN"
       }
+    },
+    "/train-types": {
+      "get": {
+        "summary": "열차종류 코드와 종류명 목록",
+        "operationId": "list_train_types",
+        "tags": [
+          "train-types"
+        ],
+        "description": "공개 열차종류 목록. 아직 구현되지 않은 예정 계약.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TrainType"
+                      }
+                    },
+                    "page": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "size": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 100
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "page",
+                    "size",
+                    "total"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "대상 없음 또는 본인 소유 아님",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "업무 상태·중복 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "입력 형식·업무 입력 검증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "잠금 재시도 소진, 나중에 재시도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-implementation-status": "planned",
+        "x-required-role": "PUBLIC"
+      }
+    },
+    "/admin/train-types": {
+      "get": {
+        "summary": "열차종류 목록",
+        "operationId": "get_admin_train_types",
+        "tags": [
+          "admin"
+        ],
+        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TrainType"
+                      }
+                    },
+                    "page": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "size": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 100
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "page",
+                    "size",
+                    "total"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 필요 또는 만료",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "관리자 권한 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "대상 없음 또는 본인 소유 아님",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "업무 상태·중복 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "입력 형식·업무 입력 검증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "잠금 재시도 소진, 나중에 재시도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-implementation-status": "planned",
+        "x-required-role": "ADMIN"
+      },
+      "post": {
+        "summary": "열차종류 등록",
+        "operationId": "post_admin_train_types",
+        "tags": [
+          "admin"
+        ],
+        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrainType"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 필요 또는 만료",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "관리자 권한 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "대상 없음 또는 본인 소유 아님",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "업무 상태·중복 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "입력 형식·업무 입력 검증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "잠금 재시도 소진, 나중에 재시도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-implementation-status": "planned",
+        "x-required-role": "ADMIN",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrainTypeCreate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/train-types/{code}": {
+      "patch": {
+        "summary": "열차종류명 수정",
+        "operationId": "patch_admin_train_type_by_code",
+        "tags": [
+          "admin"
+        ],
+        "description": "관리자 전용 예정 계약. 코드는 변경하지 않으며 참조 중인 종류는 삭제할 수 없다.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 30,
+              "description": "train_types.code 참조"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrainType"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 필요 또는 만료",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "관리자 권한 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "대상 없음 또는 본인 소유 아님",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "업무 상태·중복 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "입력 형식·업무 입력 검증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "잠금 재시도 소진, 나중에 재시도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-implementation-status": "planned",
+        "x-required-role": "ADMIN",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrainTypePatch"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "미참조 열차종류 삭제",
+        "operationId": "delete_admin_train_type_by_code",
+        "tags": [
+          "admin"
+        ],
+        "description": "관리자 전용 예정 계약. 코드는 변경하지 않으며 참조 중인 종류는 삭제할 수 없다.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 30,
+              "description": "train_types.code 참조"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "인증 필요 또는 만료",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "관리자 권한 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "대상 없음 또는 본인 소유 아님",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "업무 상태·중복 충돌",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "입력 형식·업무 입력 검증 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "잠금 재시도 소진, 나중에 재시도",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-implementation-status": "planned",
+        "x-required-role": "ADMIN"
+      }
     }
   },
   "components": {
@@ -6496,11 +7071,13 @@
         "properties": {
           "email": {
             "type": "string",
-            "format": "email"
+            "format": "email",
+            "maxLength": 254
           },
           "password": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 128
           }
         },
         "required": [
@@ -6586,14 +7163,16 @@
           }
         },
         "required": [],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "minProperties": 1
       },
       "PasswordChange": {
         "type": "object",
         "properties": {
           "current_password": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 128
           },
           "new_password": {
             "type": "string",
@@ -6632,8 +7211,12 @@
             "minLength": 1
           },
           "region": {
-            "type": "string",
-            "minLength": 1
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 100,
+            "description": "ERD 밖의 선택 정보"
           },
           "is_active": {
             "type": "boolean"
@@ -6655,8 +7238,12 @@
             "minLength": 1
           },
           "region": {
-            "type": "string",
-            "minLength": 1
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 100,
+            "description": "ERD 밖의 선택 정보"
           },
           "is_active": {
             "type": "boolean"
@@ -6664,7 +7251,6 @@
         },
         "required": [
           "name",
-          "region",
           "is_active"
         ],
         "additionalProperties": false
@@ -6677,15 +7263,20 @@
             "minLength": 1
           },
           "region": {
-            "type": "string",
-            "minLength": 1
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 100,
+            "description": "ERD 밖의 선택 정보"
           },
           "is_active": {
             "type": "boolean"
           }
         },
         "required": [],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "minProperties": 1
       },
       "Train": {
         "type": "object",
@@ -6698,9 +7289,11 @@
             "type": "string",
             "minLength": 1
           },
-          "train_type": {
+          "train_type_code": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 30,
+            "description": "train_types.code 참조"
           },
           "is_active": {
             "type": "boolean"
@@ -6709,7 +7302,7 @@
         "required": [
           "id",
           "identifier",
-          "train_type",
+          "train_type_code",
           "is_active"
         ],
         "additionalProperties": false
@@ -6721,9 +7314,11 @@
             "type": "string",
             "minLength": 1
           },
-          "train_type": {
+          "train_type_code": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 30,
+            "description": "train_types.code 참조"
           },
           "is_active": {
             "type": "boolean"
@@ -6731,7 +7326,7 @@
         },
         "required": [
           "identifier",
-          "train_type",
+          "train_type_code",
           "is_active"
         ],
         "additionalProperties": false
@@ -6743,16 +7338,19 @@
             "type": "string",
             "minLength": 1
           },
-          "train_type": {
+          "train_type_code": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 30,
+            "description": "train_types.code 참조"
           },
           "is_active": {
             "type": "boolean"
           }
         },
         "required": [],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "minProperties": 1
       },
       "Seat": {
         "type": "object",
@@ -6836,7 +7434,8 @@
           }
         },
         "required": [],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "minProperties": 1
       },
       "Route": {
         "type": "object",
@@ -6849,10 +7448,6 @@
             "type": "string",
             "minLength": 1
           },
-          "direction": {
-            "type": "string",
-            "minLength": 1
-          },
           "is_active": {
             "type": "boolean"
           }
@@ -6860,7 +7455,6 @@
         "required": [
           "id",
           "name",
-          "direction",
           "is_active"
         ],
         "additionalProperties": false
@@ -6872,17 +7466,12 @@
             "type": "string",
             "minLength": 1
           },
-          "direction": {
-            "type": "string",
-            "minLength": 1
-          },
           "is_active": {
             "type": "boolean"
           }
         },
         "required": [
           "name",
-          "direction",
           "is_active"
         ],
         "additionalProperties": false
@@ -6894,16 +7483,13 @@
             "type": "string",
             "minLength": 1
           },
-          "direction": {
-            "type": "string",
-            "minLength": 1
-          },
           "is_active": {
             "type": "boolean"
           }
         },
         "required": [],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "minProperties": 1
       },
       "RouteStop": {
         "type": "object",
@@ -6973,7 +7559,8 @@
           }
         },
         "required": [],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "minProperties": 1
       },
       "Run": {
         "type": "object",
@@ -7005,6 +7592,14 @@
               "CLOSED",
               "CANCELLED"
             ]
+          },
+          "direction": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "examples": [
+              "A_TO_C"
+            ]
           }
         },
         "required": [
@@ -7013,7 +7608,8 @@
           "route_id",
           "service_number",
           "service_date",
-          "status"
+          "status",
+          "direction"
         ],
         "additionalProperties": false
       },
@@ -7042,6 +7638,14 @@
               "ON_SALE",
               "CLOSED"
             ]
+          },
+          "direction": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "examples": [
+              "A_TO_C"
+            ]
           }
         },
         "required": [
@@ -7049,7 +7653,8 @@
           "route_id",
           "service_number",
           "service_date",
-          "status"
+          "status",
+          "direction"
         ],
         "additionalProperties": false
       },
@@ -7078,10 +7683,19 @@
               "ON_SALE",
               "CLOSED"
             ]
+          },
+          "direction": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "examples": [
+              "A_TO_C"
+            ]
           }
         },
         "required": [],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "minProperties": 1
       },
       "RunStop": {
         "type": "object",
@@ -7197,7 +7811,8 @@
           }
         },
         "required": [],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "minProperties": 1
       },
       "Fare": {
         "type": "object",
@@ -7214,9 +7829,11 @@
             "type": "integer",
             "minimum": 1
           },
-          "train_type": {
+          "train_type_code": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 30,
+            "description": "train_types.code 참조"
           },
           "seat_class": {
             "type": "string",
@@ -7232,7 +7849,7 @@
           "id",
           "departure_station_id",
           "arrival_station_id",
-          "train_type",
+          "train_type_code",
           "seat_class",
           "amount"
         ],
@@ -7249,9 +7866,11 @@
             "type": "integer",
             "minimum": 1
           },
-          "train_type": {
+          "train_type_code": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 30,
+            "description": "train_types.code 참조"
           },
           "seat_class": {
             "type": "string",
@@ -7266,7 +7885,7 @@
         "required": [
           "departure_station_id",
           "arrival_station_id",
-          "train_type",
+          "train_type_code",
           "seat_class",
           "amount"
         ],
@@ -7283,9 +7902,11 @@
             "type": "integer",
             "minimum": 1
           },
-          "train_type": {
+          "train_type_code": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 30,
+            "description": "train_types.code 참조"
           },
           "seat_class": {
             "type": "string",
@@ -7298,7 +7919,8 @@
           }
         },
         "required": [],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "minProperties": 1
       },
       "FareSummary": {
         "type": "object",
@@ -7335,9 +7957,11 @@
             "type": "string",
             "minLength": 1
           },
-          "train_type": {
+          "train_type_code": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 30,
+            "description": "train_types.code 참조"
           },
           "boarding_run_stop_id": {
             "type": "integer",
@@ -7360,17 +7984,32 @@
             "items": {
               "$ref": "#/components/schemas/FareSummary"
             }
+          },
+          "train_type_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "direction": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "examples": [
+              "A_TO_C"
+            ]
           }
         },
         "required": [
           "run_id",
           "service_number",
-          "train_type",
+          "train_type_code",
           "boarding_run_stop_id",
           "alighting_run_stop_id",
           "departure_at",
           "arrival_at",
-          "fares"
+          "fares",
+          "train_type_name",
+          "direction"
         ],
         "additionalProperties": false
       },
@@ -7880,6 +8519,61 @@
         "required": [
           "is_active"
         ],
+        "additionalProperties": false,
+        "minProperties": 1
+      },
+      "TrainType": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 30,
+            "description": "열차종류 기본키"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "required": [
+          "code",
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "TrainTypeCreate": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 30,
+            "description": "생성 후 변경하지 않는 열차종류 기본키"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "required": [
+          "code",
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "TrainTypePatch": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "minProperties": 1,
         "additionalProperties": false
       }
     }

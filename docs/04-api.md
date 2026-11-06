@@ -1,87 +1,112 @@
 # API 명세
 
-Base URL: /api/v1. health를 제외한 모든 업무 API는 예정 계약이다.
+Base URL: /api/v1. health와 회원·인증 6개는 구현했고 나머지 55개는 예정 계약이다.
+구현 여부는 OpenAPI의 x-implementation-status와 아래 표를 기준으로 확인한다.
 정확한 속성·필수값·enum·응답 스키마는 [openapi.json](openapi.json)의 components/schemas를 기준으로 한다.
 아래 경로에는 /api/v1을 붙인다. JSON은 snake_case, ID는 양의 정수, 시간은 시간대 포함 ISO 8601이다.
+열차종류의 `code`는 1~30자 문자열 PK이며 `/admin/train-types/{code}`의 경로 변수도 문자열이다.
 PUBLIC은 비인증, MEMBER는 로그인한 회원 및 관리자, ADMIN은 관리자만 허용한다.
 MEMBER 경로는 관리자라도 본인 리소스만 접근한다. 타인 운영 조회는 /admin을 이용한다.
 본인 대상이 아니면 존재 여부를 숨기기 위해 404를 반환한다.
-리스트는 items/page/size/total 형식이고 page는 1부터, size는 기본 20·최대 100이다.
-예약·환불 목록은 created_at DESC, id DESC, 기준정보는 id ASC 정렬한다.
+목록은 items/page/size/total 형식이며 좌석 조회만 SeatAvailability 배열을 직접 반환한다.
+페이지 목록의 page는 1부터, size는 기본 20·최대 100이다.
+예약·환불 목록은 created_at DESC, id DESC, 기준정보는 id ASC 정렬한다. 열차종류 목록은 code ASC다.
 검색은 departure_at ASC, run_id ASC, 승하차 정차 ID ASC로 정렬한다.
 PATCH는 최소 한 속성이 필요하고 알 수 없는 필드와 빈 객체를 거절한다.
 이메일은 trim + 소문자 정규화 후 중복을 확인하고 비밀번호는 정규화하지 않는다.
 
 ## 엔드포인트
 
-| Method | 경로 | 권한 | 기능 | 요청 본문 스키마 | 성공 코드 |
-| --- | --- | --- | --- | --- | --- |
-| GET | /health | PUBLIC | 프로세스 상태 확인 | — | 200 |
-| POST | /auth/register | PUBLIC | 회원가입 | Register | 201 |
-| POST | /auth/login | PUBLIC | 로그인 | Login | 200 |
-| POST | /auth/logout | MEMBER | 전체 기기 토큰 무효화 | — | 200 |
-| GET | /users/me | MEMBER | 본인 정보 | — | 200 |
-| PATCH | /users/me | MEMBER | 본인 이름·연락처 수정 | UserPatch | 200 |
-| POST | /users/me/password | MEMBER | 비밀번호 변경 및 전 토큰 무효화 | PasswordChange | 200 |
-| GET | /stations | PUBLIC | 운영중인 역 목록 | — | 200 |
-| GET | /runs | MEMBER | 직통 운행 검색 | — | 200 |
-| GET | /runs/{run_id}/seats | MEMBER | 선택 구간 좌석 조회 | — | 200 |
-| POST | /reservations | MEMBER | 여러 좌석 예약 | ReservationCreate | 201 |
-| GET | /reservations | MEMBER | 본인 예약 목록 | — | 200 |
-| GET | /reservations/{reservation_id} | MEMBER | 예약·승차권·결제·환불 상세 | — | 200 |
-| POST | /reservations/{reservation_id}/cancel | MEMBER | 미결제 예약 전체 취소 | — | 200 |
-| POST | /reservations/{reservation_id}/payments | MEMBER | 시연 결제 및 발권 | PaymentCreate | 201 |
-| GET | /tickets/{ticket_id} | MEMBER | 본인 승차권 조회 | — | 200 |
-| POST | /reservations/{reservation_id}/ticket-cancellations | MEMBER | 발권 승차권 선택 취소·환불 접수 | TicketCancel | 200 |
-| GET | /refunds | MEMBER | 본인 환불 목록 | — | 200 |
-| GET | /refunds/{refund_id} | MEMBER | 본인 환불 처리 상태 | — | 200 |
-| GET | /admin/stations | ADMIN | 관리 stations 목록 | — | 200 |
-| POST | /admin/stations | ADMIN | 관리 stations 등록 | StationCreate | 201 |
-| PATCH | /admin/stations/{id} | ADMIN | 관리 stations 수정 | StationPatch | 200 |
-| DELETE | /admin/stations/{id} | ADMIN | 미참조 stations 삭제 | — | 200 |
-| GET | /admin/trains | ADMIN | 관리 trains 목록 | — | 200 |
-| POST | /admin/trains | ADMIN | 관리 trains 등록 | TrainCreate | 201 |
-| PATCH | /admin/trains/{id} | ADMIN | 관리 trains 수정 | TrainPatch | 200 |
-| DELETE | /admin/trains/{id} | ADMIN | 미참조 trains 삭제 | — | 200 |
-| GET | /admin/seats | ADMIN | 관리 seats 목록 | — | 200 |
-| POST | /admin/seats | ADMIN | 관리 seats 등록 | SeatCreate | 201 |
-| PATCH | /admin/seats/{id} | ADMIN | 관리 seats 수정 | SeatPatch | 200 |
-| DELETE | /admin/seats/{id} | ADMIN | 미참조 seats 삭제 | — | 200 |
-| GET | /admin/routes | ADMIN | 관리 routes 목록 | — | 200 |
-| POST | /admin/routes | ADMIN | 관리 routes 등록 | RouteCreate | 201 |
-| PATCH | /admin/routes/{id} | ADMIN | 관리 routes 수정 | RoutePatch | 200 |
-| DELETE | /admin/routes/{id} | ADMIN | 미참조 routes 삭제 | — | 200 |
-| GET | /admin/route-stops | ADMIN | 관리 route-stops 목록 | — | 200 |
-| POST | /admin/route-stops | ADMIN | 관리 route-stops 등록 | RouteStopCreate | 201 |
-| PATCH | /admin/route-stops/{id} | ADMIN | 관리 route-stops 수정 | RouteStopPatch | 200 |
-| DELETE | /admin/route-stops/{id} | ADMIN | 미참조 route-stops 삭제 | — | 200 |
-| GET | /admin/runs | ADMIN | 관리 runs 목록 | — | 200 |
-| POST | /admin/runs | ADMIN | 관리 runs 등록 | RunCreate | 201 |
-| PATCH | /admin/runs/{id} | ADMIN | 관리 runs 수정 | RunPatch | 200 |
-| GET | /admin/run-stops | ADMIN | 관리 run-stops 목록 | — | 200 |
-| POST | /admin/run-stops | ADMIN | 관리 run-stops 등록 | RunStopCreate | 201 |
-| PATCH | /admin/run-stops/{id} | ADMIN | 관리 run-stops 수정 | RunStopPatch | 200 |
-| DELETE | /admin/run-stops/{id} | ADMIN | 미참조 run-stops 삭제 | — | 200 |
-| GET | /admin/fares | ADMIN | 관리 fares 목록 | — | 200 |
-| POST | /admin/fares | ADMIN | 관리 fares 등록 | FareCreate | 201 |
-| PATCH | /admin/fares/{id} | ADMIN | 관리 fares 수정 | FarePatch | 200 |
-| DELETE | /admin/fares/{id} | ADMIN | 미참조 fares 삭제 | — | 200 |
-| POST | /admin/runs/{run_id}/cancel | ADMIN | 운행 취소 및 환불 접수 | — | 200 |
-| GET | /admin/users | ADMIN | 회원 목록 | — | 200 |
-| PATCH | /admin/users/{user_id} | ADMIN | 회원 활성 여부 변경 | AdminUserPatch | 200 |
-| GET | /admin/reservations | ADMIN | 예약·발권·결제·환불 운영 조회 | — | 200 |
-| GET | /admin/refunds | ADMIN | 환불 현황 | — | 200 |
-| POST | /admin/refunds/{refund_id}/process | ADMIN | 대기 환불 처리 또는 실패 환불 재시도 | RefundProcess | 200 |
-| POST | /admin/tickets/{ticket_id}/boarding | ADMIN | 탑승 확인 | — | 201 |
+| Method | 경로 | 권한 | 기능 | 요청 본문 스키마 | 성공 코드 | 구현 상태 |
+| --- | --- | --- | --- | --- | --- | --- |
+| GET | /health | PUBLIC | 프로세스 상태 확인 | — | 200 | 구현 |
+| POST | /auth/register | PUBLIC | 회원가입 | Register | 201 | 구현 |
+| POST | /auth/login | PUBLIC | 로그인 | Login | 200 | 구현 |
+| POST | /auth/logout | MEMBER | 전체 기기 토큰 무효화 | — | 200 | 구현 |
+| GET | /users/me | MEMBER | 본인 정보 | — | 200 | 구현 |
+| PATCH | /users/me | MEMBER | 본인 이름·연락처 수정 | UserPatch | 200 | 구현 |
+| POST | /users/me/password | MEMBER | 비밀번호 변경 및 전 토큰 무효화 | PasswordChange | 200 | 구현 |
+| GET | /stations | PUBLIC | 운영중인 역 목록 | — | 200 | 예정 |
+| GET | /train-types | PUBLIC | 열차종류 코드·종류명 목록 | — | 200 | 예정 |
+| GET | /runs | MEMBER | 직통 운행 검색 | — | 200 | 예정 |
+| GET | /runs/{run_id}/seats | MEMBER | 선택 구간 좌석 조회 | — | 200 | 예정 |
+| POST | /reservations | MEMBER | 여러 좌석 예약 | ReservationCreate | 201 | 예정 |
+| GET | /reservations | MEMBER | 본인 예약 목록 | — | 200 | 예정 |
+| GET | /reservations/{reservation_id} | MEMBER | 예약·승차권·결제·환불 상세 | — | 200 | 예정 |
+| POST | /reservations/{reservation_id}/cancel | MEMBER | 미결제 예약 전체 취소 | — | 200 | 예정 |
+| POST | /reservations/{reservation_id}/payments | MEMBER | 시연 결제 및 발권 | PaymentCreate | 201 | 예정 |
+| GET | /tickets/{ticket_id} | MEMBER | 본인 승차권 조회 | — | 200 | 예정 |
+| POST | /reservations/{reservation_id}/ticket-cancellations | MEMBER | 발권 승차권 선택 취소·환불 접수 | TicketCancel | 200 | 예정 |
+| GET | /refunds | MEMBER | 본인 환불 목록 | — | 200 | 예정 |
+| GET | /refunds/{refund_id} | MEMBER | 본인 환불 처리 상태 | — | 200 | 예정 |
+| GET | /admin/stations | ADMIN | 관리 stations 목록 | — | 200 | 예정 |
+| POST | /admin/stations | ADMIN | 관리 stations 등록 | StationCreate | 201 | 예정 |
+| PATCH | /admin/stations/{id} | ADMIN | 관리 stations 수정 | StationPatch | 200 | 예정 |
+| DELETE | /admin/stations/{id} | ADMIN | 미참조 stations 삭제 | — | 200 | 예정 |
+| GET | /admin/trains | ADMIN | 관리 trains 목록 | — | 200 | 예정 |
+| GET | /admin/train-types | ADMIN | 열차종류 목록 | — | 200 | 예정 |
+| POST | /admin/train-types | ADMIN | 열차종류 등록 | TrainTypeCreate | 201 | 예정 |
+| PATCH | /admin/train-types/{code} | ADMIN | 종류명 수정 | TrainTypePatch | 200 | 예정 |
+| DELETE | /admin/train-types/{code} | ADMIN | 미참조 열차종류 삭제 | — | 200 | 예정 |
+| POST | /admin/trains | ADMIN | 관리 trains 등록 | TrainCreate | 201 | 예정 |
+| PATCH | /admin/trains/{id} | ADMIN | 관리 trains 수정 | TrainPatch | 200 | 예정 |
+| DELETE | /admin/trains/{id} | ADMIN | 미참조 trains 삭제 | — | 200 | 예정 |
+| GET | /admin/seats | ADMIN | 관리 seats 목록 | — | 200 | 예정 |
+| POST | /admin/seats | ADMIN | 관리 seats 등록 | SeatCreate | 201 | 예정 |
+| PATCH | /admin/seats/{id} | ADMIN | 관리 seats 수정 | SeatPatch | 200 | 예정 |
+| DELETE | /admin/seats/{id} | ADMIN | 미참조 seats 삭제 | — | 200 | 예정 |
+| GET | /admin/routes | ADMIN | 관리 routes 목록 | — | 200 | 예정 |
+| POST | /admin/routes | ADMIN | 관리 routes 등록 | RouteCreate | 201 | 예정 |
+| PATCH | /admin/routes/{id} | ADMIN | 관리 routes 수정 | RoutePatch | 200 | 예정 |
+| DELETE | /admin/routes/{id} | ADMIN | 미참조 routes 삭제 | — | 200 | 예정 |
+| GET | /admin/route-stops | ADMIN | 관리 route-stops 목록 | — | 200 | 예정 |
+| POST | /admin/route-stops | ADMIN | 관리 route-stops 등록 | RouteStopCreate | 201 | 예정 |
+| PATCH | /admin/route-stops/{id} | ADMIN | 관리 route-stops 수정 | RouteStopPatch | 200 | 예정 |
+| DELETE | /admin/route-stops/{id} | ADMIN | 미참조 route-stops 삭제 | — | 200 | 예정 |
+| GET | /admin/runs | ADMIN | 관리 runs 목록 | — | 200 | 예정 |
+| POST | /admin/runs | ADMIN | 관리 runs 등록 | RunCreate | 201 | 예정 |
+| PATCH | /admin/runs/{id} | ADMIN | 관리 runs 수정 | RunPatch | 200 | 예정 |
+| GET | /admin/run-stops | ADMIN | 관리 run-stops 목록 | — | 200 | 예정 |
+| POST | /admin/run-stops | ADMIN | 관리 run-stops 등록 | RunStopCreate | 201 | 예정 |
+| PATCH | /admin/run-stops/{id} | ADMIN | 관리 run-stops 수정 | RunStopPatch | 200 | 예정 |
+| DELETE | /admin/run-stops/{id} | ADMIN | 미참조 run-stops 삭제 | — | 200 | 예정 |
+| GET | /admin/fares | ADMIN | 관리 fares 목록 | — | 200 | 예정 |
+| POST | /admin/fares | ADMIN | 관리 fares 등록 | FareCreate | 201 | 예정 |
+| PATCH | /admin/fares/{id} | ADMIN | 관리 fares 수정 | FarePatch | 200 | 예정 |
+| DELETE | /admin/fares/{id} | ADMIN | 미참조 fares 삭제 | — | 200 | 예정 |
+| POST | /admin/runs/{run_id}/cancel | ADMIN | 운행 취소 및 환불 접수 | — | 200 | 예정 |
+| GET | /admin/users | ADMIN | 회원 목록 | — | 200 | 예정 |
+| PATCH | /admin/users/{user_id} | ADMIN | 회원 활성 여부 변경 | AdminUserPatch | 200 | 예정 |
+| GET | /admin/reservations | ADMIN | 예약·발권·결제·환불 운영 조회 | — | 200 | 예정 |
+| GET | /admin/refunds | ADMIN | 환불 현황 | — | 200 | 예정 |
+| POST | /admin/refunds/{refund_id}/process | ADMIN | 대기 환불 처리 또는 실패 환불 재시도 | RefundProcess | 200 | 예정 |
+| POST | /admin/tickets/{ticket_id}/boarding | ADMIN | 탑승 확인 | — | 201 | 예정 |
 
 결제 실패 시에도 정상 시연 처리 결과이므로 201 Payment(status=FAILED)를 반환한다.
 멱등 재전송은 200이며 새로운 결제·발권을 만들지 않는다.
 DELETE는 미참조 데이터에만 허용한다. 참조가 있으면 409 RESOURCE_IN_USE다.
 운행은 DELETE하지 않고 전용 cancel을 사용한다. 운행 생성·일반 PATCH로 CANCELLED를 받을 수 없다.
-예약이 존재하면 운행의 열차·노선·시간표·정차순서를 수정할 수 없다.
+예약이 존재하면 운행의 열차·노선·운행방향·시간표·정차순서를 수정할 수 없다.
 기존 운행이 참조하는 노선정차역·좌석 구성도 임의 변경하지 않는다.
 관리자 회원 수정은 is_active만 받으며 권한 승격·비밀번호 조회 기능은 없다.
 회원 비활성화 시 token_version을 증가시키되 기존 예약·결제 기록은 보존한다.
+
+## 첨부 ERD 반영 계약
+
+- 열차종류는 `TrainType(code, name)`로 분리한다. 참조 중인 코드는 변경·삭제하지 않으며 PATCH는 name만 받는다.
+- Train·Fare·운행 검색 결과는 `train_type_code`를 사용한다. 등록된 열차종류를 FK로 참조한다.
+- 운행 검색 결과는 표시용 `train_type_name`과 운행의 `direction`도 제공한다.
+- Route는 name·is_active를 가지며 direction을 받지 않는다. RunCreate는 direction이 필수이고 RunPatch에서 변경할 수 있다.
+- 운행의 실제 구간 순서는 RunStop.stop_order다. 정방향·역방향 모두 진행 순서 1부터 지정한다.
+- StationCreate의 region은 그림 밖의 선택 정보이며 생략 또는 null이 가능하다.
+- seat_occupancies는 내부 테이블이다. 예약 요청으로 segment_start_order·ticket_id·점유 상태를 받지 않는다.
+- 예약 성공은 선택 좌석의 모든 단위 구간 점유까지 저장됐다는 의미다. 복합 PK 충돌은 409 SEAT_CONFLICT다.
+- 취소·만료는 승차권 상태와 점유 해제를 함께 반영한다. 환불 실패로 이미 해제한 점유를 복구하지 않는다.
+
+예: 열차종류 등록은 `{"code":"EXPRESS","name":"급행"}`,
+열차 등록은 `{"identifier":"TRAIN-010","train_type_code":"EXPRESS","is_active":true}`다.
+전체 계약은 OpenAPI 버전 0.2.0의 62개 작업이다. 회원·인증 업무 API 6개와 health를 구현했다.
+샘플 응답과 실제 구현 여부는 별개다. [sample-catalog.json](sample-catalog.json)의 가상 데이터를 성공 기록으로 간주하지 않는다.
 
 ## 핵심 요청 예시
 
@@ -129,6 +154,10 @@ tickets, payments, refunds를 포함한다. 최초 상태는 PENDING_PAYMENT, ti
 | 409 | RESOURCE_IN_USE / RUN_TIME_CONFLICT | 참조 중인 데이터 또는 열차 운행 시간 충돌 |
 | 422 | VALIDATION_ERROR | 필수값·인원·구간·운임 부재 등 입력 검증 |
 | 503 | RETRY_LATER | 잠금 재시도 소진 |
+| 503 | DATABASE_UNAVAILABLE / AUTH_NOT_CONFIGURED | DB·인증 환경설정 필요 |
+| 500 | INTERNAL_ERROR | 내부 원문을 노출하지 않는 예상 밖 오류 |
 
 오류 내부 DB 문자열·스택·토큰은 응답으로 노출하지 않는다.
-현재 health 이외의 공통 오류 핸들러·업무 API·인증은 아직 구현되지 않았다.
+공통 오류 핸들러와 회원·인증을 구현했다. 503 DATABASE_UNAVAILABLE은 DB 연결·스키마 문제,
+503 AUTH_NOT_CONFIGURED는 JWT 비밀키 누락이다. 설정이나 SQL 내부 문자열은 응답하지 않는다.
+로그아웃·비밀번호 변경은 모든 기존 토큰을 무효화하며 비밀번호 변경 뒤 재로그인한다.
