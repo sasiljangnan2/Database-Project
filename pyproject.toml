@@ -27,7 +27,7 @@ dev = ["pytest>=8,<9", "httpx>=0.27,<1", "ruff>=0.9,<1", "openapi-spec-validator
 include = ["app*"]
 
 [tool.setuptools.package-data]
-app = ["templates/*.html", "static/*.css", "static/js/*.js", "static/samples/*.json"]
+app = ["templates/*.html", "static/*.css", "static/js/*.js", "static/images/*.png", "static/samples/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
