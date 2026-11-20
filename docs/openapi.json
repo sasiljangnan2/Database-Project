@@ -3,7 +3,7 @@
   "info": {
     "title": "기차 예약 시스템 — 예정 API 계약",
     "version": "0.2.0",
-    "description": "16개 테이블 기준 예정 계약 62개. health와 회원·인증 6개 구현. 검색·예약·결제 등은 담당자별 개발 예정."
+    "description": "16개 테이블 기준 계약 62개. 구현 48개: health, 회원·인증, 기준정보·운행 검색·관리(김용우). 예약·결제·환불·탑승·운행취소·운영조회는 담당자별 개발 예정."
   },
   "servers": [
     {
@@ -575,7 +575,7 @@
         "tags": [
           "stations"
         ],
-        "description": "아직 구현되지 않은 예정 계약. 본인 리소스 접근만 허용.",
+        "description": "구현됨. 본인 리소스 접근만 허용.",
         "security": [],
         "parameters": [
           {
@@ -689,7 +689,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "PUBLIC"
       }
     },
@@ -700,7 +700,7 @@
         "tags": [
           "runs"
         ],
-        "description": "아직 구현되지 않은 예정 계약. 본인 리소스 접근만 허용.",
+        "description": "구현됨. 본인 리소스 접근만 허용.",
         "security": [
           {
             "BearerAuth": []
@@ -866,7 +866,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "MEMBER"
       }
     },
@@ -877,7 +877,7 @@
         "tags": [
           "runs"
         ],
-        "description": "아직 구현되지 않은 예정 계약. 본인 리소스 접근만 허용.",
+        "description": "구현됨. 본인 리소스 접근만 허용.",
         "security": [
           {
             "BearerAuth": []
@@ -987,7 +987,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "MEMBER"
       }
     },
@@ -2032,7 +2032,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -2161,7 +2161,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       },
       "post": {
@@ -2170,7 +2170,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -2249,7 +2249,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -2270,7 +2270,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -2359,7 +2359,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -2378,7 +2378,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -2467,7 +2467,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       }
     },
@@ -2478,7 +2478,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -2607,7 +2607,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       },
       "post": {
@@ -2616,7 +2616,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -2695,7 +2695,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -2716,7 +2716,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -2805,7 +2805,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -2824,7 +2824,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -2913,7 +2913,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       }
     },
@@ -2924,7 +2924,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -3053,7 +3053,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       },
       "post": {
@@ -3062,7 +3062,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -3141,7 +3141,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -3162,7 +3162,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -3251,7 +3251,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -3270,7 +3270,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -3359,7 +3359,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       }
     },
@@ -3370,7 +3370,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -3499,7 +3499,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       },
       "post": {
@@ -3508,7 +3508,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -3587,7 +3587,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -3608,7 +3608,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -3697,7 +3697,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -3716,7 +3716,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -3805,7 +3805,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       }
     },
@@ -3816,7 +3816,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -3945,7 +3945,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       },
       "post": {
@@ -3954,7 +3954,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -4033,7 +4033,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -4054,7 +4054,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -4143,7 +4143,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -4162,7 +4162,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -4251,7 +4251,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       }
     },
@@ -4262,7 +4262,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -4391,7 +4391,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       },
       "post": {
@@ -4400,7 +4400,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -4479,7 +4479,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -4500,7 +4500,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -4589,7 +4589,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -4610,7 +4610,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -4739,7 +4739,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       },
       "post": {
@@ -4748,7 +4748,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -4827,7 +4827,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -4848,7 +4848,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -4937,7 +4937,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -4956,7 +4956,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -5045,7 +5045,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       }
     },
@@ -5056,7 +5056,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -5185,7 +5185,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       },
       "post": {
@@ -5194,7 +5194,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -5273,7 +5273,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -5294,7 +5294,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -5383,7 +5383,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -5402,7 +5402,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -5491,7 +5491,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       }
     },
@@ -5602,7 +5602,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -5740,7 +5740,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       }
     },
@@ -5751,7 +5751,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -5840,7 +5840,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -6391,7 +6391,7 @@
         "tags": [
           "train-types"
         ],
-        "description": "공개 열차종류 목록. 아직 구현되지 않은 예정 계약.",
+        "description": "공개 열차종류 목록. 구현됨.",
         "security": [],
         "parameters": [
           {
@@ -6505,7 +6505,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "PUBLIC"
       }
     },
@@ -6516,7 +6516,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -6645,7 +6645,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       },
       "post": {
@@ -6654,7 +6654,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용. 아직 구현되지 않은 예정 계약.",
+        "description": "관리자 전용. 구현됨.",
         "security": [
           {
             "BearerAuth": []
@@ -6733,7 +6733,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -6754,7 +6754,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용 예정 계약. 코드는 변경하지 않으며 참조 중인 종류는 삭제할 수 없다.",
+        "description": "관리자 전용. 코드는 변경하지 않으며 참조 중인 종류는 삭제할 수 없다.",
         "security": [
           {
             "BearerAuth": []
@@ -6845,7 +6845,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN",
         "requestBody": {
           "required": true,
@@ -6864,7 +6864,7 @@
         "tags": [
           "admin"
         ],
-        "description": "관리자 전용 예정 계약. 코드는 변경하지 않으며 참조 중인 종류는 삭제할 수 없다.",
+        "description": "관리자 전용. 코드는 변경하지 않으며 참조 중인 종류는 삭제할 수 없다.",
         "security": [
           {
             "BearerAuth": []
@@ -6955,7 +6955,7 @@
             }
           }
         },
-        "x-implementation-status": "planned",
+        "x-implementation-status": "implemented",
         "x-required-role": "ADMIN"
       }
     }
